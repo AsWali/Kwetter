@@ -25,5 +25,12 @@ public class UserServiceImplTest {
         assertEquals(a,b);
     }
 
+    @Test
+    public void getUser2() throws Exception {
+        int a = 1;
+        int b = 2;
+        assertEquals(a,b);
+    }
+
 
 }
