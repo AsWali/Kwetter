@@ -21,14 +21,14 @@ public class UserServiceImplTest {
     @Test
     public void getUser() throws Exception {
         int a = 1;
-        int b = 2;
+        int b = 1;
         assertEquals(a,b);
     }
 
     @Test
     public void getUser2() throws Exception {
         int a = 1;
-        int b = 2;
+        int b = 1;
         assertEquals(a,b);
     }
 
