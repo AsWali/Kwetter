@@ -22,8 +22,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Kwetter-web/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="99" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+            <state relative-caret-position="578">
+              <caret line="98" column="21" lean-forward="false" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -745,7 +745,7 @@
       <workItem from="1490180882023" duration="201000" />
       <workItem from="1490181237331" duration="875000" />
       <workItem from="1490718305135" duration="558000" />
-      <workItem from="1490719032110" duration="989000" />
+      <workItem from="1490719032110" duration="1146000" />
     </task>
     <servers />
   </component>
@@ -755,7 +755,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9895000" />
+    <option name="totallyTimeSpent" value="10052000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -1042,8 +1042,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Kwetter-web/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="99" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+        <state relative-caret-position="578">
+          <caret line="98" column="21" lean-forward="false" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
           <folding />
         </state>
       </provider>

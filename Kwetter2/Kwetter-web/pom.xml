@@ -67,7 +67,7 @@
             <uniqueVersion>false</uniqueVersion>
             <id>overheid</id>
             <name>Corporate Repository</name>
-            <url>127.0.0.1:8081</url>
+            <url>192.168.197.129:8081</url>
             <layout>default</layout>
         </repository>
     </distributionManagement>
@@ -79,7 +79,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.0.2.Final</version>
                 <configuration>
-                    <hostname>127.0.0.1</hostname>
+                    <hostname>192.168.197.129</hostname>
                     <port>9990</port>
                     <username>asror</username>
                     <password>kontgat1</password>
