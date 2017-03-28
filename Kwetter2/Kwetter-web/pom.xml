@@ -80,7 +80,7 @@
                 <version>1.0.2.Final</version>
                 <configuration>
                     <hostname>127.0.0.1</hostname>
-                    <port>9990</port>
+                    <port>9995</port>
                     <username>asror</username>
                     <password>kontgat1</password>
                 </configuration>
