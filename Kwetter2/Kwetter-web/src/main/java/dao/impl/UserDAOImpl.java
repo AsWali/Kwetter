@@ -5,11 +5,13 @@ import domain.Hearts;
 import domain.Tweet;
 import domain.User;
 import exception.NoExistingUser;
+import utils.PermissionsEnum;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -75,6 +77,18 @@ public class UserDAOImpl extends DAOFacade<User> implements UserDAO {
     public Set<Tweet> getTweets(Long id) {
         User t = this.find(id);
         return t.getTweets();
+    }
+
+    @Override
+    public Set<Hearts> getHearted(Long id) {
+        User t = this.find(id);
+        return t.getHearts();
+    }
+
+    @Override
+    public PermissionsEnum getUserPermission(String handle) {
+        User user = (User) em.createNamedQuery("user.byhandle").setParameter("handle", handle).getSingleResult();
+        return user.getPermission();
     }
 
 }

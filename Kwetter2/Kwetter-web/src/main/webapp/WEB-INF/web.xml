@@ -4,6 +4,14 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <context-param>
+        <param-name>BootsFaces_USETHEME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resteasy.role.based.security</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -19,6 +27,38 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>home.xhtml</welcome-file>
+        <welcome-file>/protected/start.xhtml</welcome-file>
     </welcome-file-list>
+
+    <security-constraint><!-- 2 -->
+        <display-name>TestConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>TestResource</web-resource-name>
+            <description/>
+            <url-pattern>/protected/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>USER</role-name>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config><!-- 3 -->
+        <auth-method>FORM</auth-method>
+        <realm-name>kwetterapp</realm-name>
+        <form-login-config>
+            <form-login-page>/home.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role><!-- 4 -->
+        <description/>
+        <role-name>USER</role-name>
+    </security-role>
+    <security-role><!-- 5 -->
+        <description/>
+        <role-name>ADMIN</role-name>
+    </security-role>
+
+
 </web-app>

@@ -1,15 +1,14 @@
 package endpoints;
 
+import org.shipstone.swagger.integration.annotation.SwaggerUIConfiguration;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * Created by Asror on 12-3-2017.
  */
 
-@ApplicationPath("/api")
+@SwaggerUIConfiguration
+@ApplicationPath("api")
 public class RestController extends Application{
-
 
 }

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Kwetter Log In</title>
+</h:head>
+<h:body style="padding-top: 60px; background-color: #add;">
+    <b:container>
+
+
+        <h:form id="loginForm" method="post" prependId="false">
+            <b:container layout="fluid" style="margin-top:100px;">
+                <b:row>
+                    <b:column medium-screen="3">
+                    </b:column>
+                    <b:column medium-screen="6">
+                        <b:panelGrid colSpans="12,0" id="stateGridId">
+                            <b:panel title="titel nr 1 boi" look="primary">
+                                <b:row>
+                                    <b:column medium-screen="12">
+                                        <b:message for="username" />
+                                        <b:message for="password" />
+                                        <b:message for="loginButton" />
+                                        <br />
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column offset="2" medium-screen="8">
+                                        <b:inputText placeholder="plceholder nr 1 boyy" required="true"
+                                                     id="username" binding="#{input2}" name="j_username" value="username" requiredMessage="required">
+                                            <f:facet name="prepend">
+                                                <b:icon name="user" />
+                                            </f:facet>
+                                        </b:inputText>
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column offset="2" medium-screen="8">
+                                        <b:inputSecret placeholder="placeholder nr 2 bo" required="true"
+                                                       id="password" binding="#{input1}" name="j_password" value="sss" requiredMessage="reqeedar">
+                                            <f:facet name="prepend">
+                                                <b:iconAwesome name="key" />
+                                            </f:facet>
+                                        </b:inputSecret>
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column offset="2" medium-screen="8">
+                                        <b:inputSecret placeholder="placeholder nr 2 bo" required="true"
+                                                       id="password2" binding="#{input3}" name="j_password" value="sss" requiredMessage="reqeedar">
+                                            <f:facet name="prepend">
+                                                <b:iconAwesome name="key" />
+                                            </f:facet>
+                                        </b:inputSecret>
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column offset="2" span="4">
+                                        <b:commandButton id="loginButton" value="Register" action="#{LoggedUserBean.register(input2.value, input1.value)}"
+                                                         look="primary" ajax="false" style="width:100%" />
+                                    </b:column>
+                                </b:row>
+                            </b:panel>
+                        </b:panelGrid>
+                    </b:column>
+                    <b:column medium-screen="3">
+                    </b:column>
+                </b:row>
+            </b:container>
+        </h:form>
+
+    </b:container>
+</h:body>
+</html>

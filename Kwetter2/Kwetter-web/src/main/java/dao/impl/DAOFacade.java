@@ -1,10 +1,12 @@
 package dao.impl;
 
 import dao.inter.GenericDAO;
+import domain.Tweet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,8 +20,18 @@ public abstract class DAOFacade<T> implements GenericDAO<T> {
         this.type = entityClass;
     }
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "persistence")
     protected EntityManager em;
+
+    @Override
+    public EntityManager getEm() {
+        return em;
+    }
+
+    @Override
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
     public T create(final T t) {
@@ -56,4 +68,5 @@ public abstract class DAOFacade<T> implements GenericDAO<T> {
     public T update(final T t) {
         return this.em.merge(t);
     }
+
 }

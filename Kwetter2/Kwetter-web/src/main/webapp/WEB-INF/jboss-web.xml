@@ -1,0 +1,3 @@
+<jboss-web>
+    <security-domain>kwetterapp</security-domain>
+</jboss-web>

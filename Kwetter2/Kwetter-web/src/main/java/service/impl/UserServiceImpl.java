@@ -2,11 +2,14 @@ package service.impl;
 
 import dao.impl.UserDAOImpl;
 import dao.inter.UserDAO;
+import domain.Hearts;
 import domain.Tweet;
 import domain.User;
 import exception.NoExistingUser;
 
+import javax.annotation.Resource;
 import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
@@ -57,5 +60,23 @@ public class UserServiceImpl {
     public Set<Tweet> getTweets(Long id) { return ud.getTweets(id);}
 
     public List<Tweet> getRecentTweets(String handle) { return ud.getRecent(handle);
+    }
+
+    public Set<Hearts> getHearted(Long id) {
+        return ud.getHearted(id);
+    }
+
+
+    @Resource
+    private SessionContext context;
+
+    public User getLoggedUser(){
+        String handle = context.getCallerPrincipal().getName();
+        try {
+            return this.getUserbyHandle(handle);
+        } catch (NoExistingUser noExistingUser) {
+            noExistingUser.printStackTrace();
+        }
+        return null;
     }
 }

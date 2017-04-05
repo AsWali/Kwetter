@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="Kwetter-web:war">
-    <output-path>$PROJECT_DIR$/Kwetter-web/target</output-path>
-    <root id="archive" name="Kwetter-web-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="Kwetter-web:war exploded" />
-    </root>
-  </artifact>
-</component>

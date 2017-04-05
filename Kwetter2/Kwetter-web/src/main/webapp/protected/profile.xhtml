@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Kwetter Log In</title>
+    <style type="text/css">
+        .profilebar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background-color: white;
+        }
+
+        .profilepic {
+            position: absolute;
+            bottom: -25px;
+            z-index: 2;
+        }
+
+        .profilebox {
+            height: 190px;
+            width: 100%;
+            background-color: #f5f8fa;
+        }
+
+        .profilepic2 {
+            position: absolute;
+            top: 30%;
+            left: 10%;
+            width: 72px;
+            height: 72px;
+        }
+
+        .banner {
+            background-color: blue;
+            height: 50%;
+            width: 100%;
+        }
+
+        .trendbox {
+            margin-top: 40px;
+            height: 500px;
+            width: 100%;
+        }
+
+        .tweet {
+            height: 115px;
+            width: 100%;
+            padding-left: 20px;
+            padding-top: 10px;
+            background-color: #f5f8fa;
+            border: solid 1px grey;
+            border-width: 1px 1px 0 1px;
+        }
+    </style>
+</h:head>
+<h:body style="background-color: #add;">
+    <ui:include src="navbar.xhtml" />
+    <b:row>
+        <b:column col-md="12">
+            <b:image value="https://pbs.twimg.com/profile_banners/25073877/1489657715/1500x500" width="100%" />
+            <b:container>
+                <b:image styleClass="profilepic" value="https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg" width="200px" height="200px" />
+            </b:container>
+            <b:row>
+                <div class="profilebar">
+                    <b:container>
+                        <b:column col-md="6" offset-md="3">
+                            <b:row>
+
+
+                            </b:row>
+                        </b:column>
+                    </b:container>
+
+                </div>
+            </b:row>
+        </b:column>
+    </b:row>
+    <b:container>
+        <b:row>
+            <b:column col-md="3">
+                <div class="trendbox">
+                    <h:form>
+                    <b:well>
+                        <strong>#{LoggedUserBean.user.name}</strong>
+                        <br></br>
+                        @#{LoggedUserBean.user.handle}
+                        <br></br>
+                        <br></br>
+                        #{LoggedUserBean.user.bio}
+                        <br></br>
+                        <br></br>
+                        <b:icon name="map-marker" />#{LoggedUserBean.user.location}
+                        <br></br>
+                        <b:icon name="link" />#{LoggedUserBean.user.website}
+
+
+                    </b:well>
+                    </h:form>
+                </div>
+            </b:column>
+            <b:column col-md="6" style="top: -41px;">
+                <b:tabView activeIndex="0">
+                <b:tab title="Tweets #{LoggedUserBean.tweetsamount}">
+                <ui:repeat var="tweet" value="#{LoggedUserBean.recenttweets}">
+
+                    <div class="tweet">
+                        <b:row>
+                            <b:column col-md="1" style="padding-left: 5px;">
+                                <b:image styleClass="tweetpic" value="https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg" width="50px" height="50px" />
+                            </b:column>
+                            <b:column col-md="9">
+                                <strong>#{tweet.user.name}</strong>
+                                @#{tweet.user.handle} -
+                                <br></br>
+                                #{tweet.tweet}
+                            </b:column>
+                            <h:form>
+                                #{tweet.amounthearts}
+
+                                <h:commandButton action="#{LoggedUserBean.heartTweet()}" value="H">
+                                    <f:param name="id" value="#{tweet.id}" />
+                                </h:commandButton>
+                            </h:form>
+                        </b:row>
+                    </div>
+                </ui:repeat>
+                </b:tab>
+                <b:tab title="Following #{LoggedUserBean.followingamount}">
+                    <ui:repeat var="user" value="#{LoggedUserBean.following}">
+
+                        <b:column col-md="6">
+                            <div class="profilebox">
+                                <div class="banner">
+                                </div>
+                                <b:image styleClass="profilepic2" value="https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg" width="200px" height="200px" />
+                                <b:row>
+                                    <b:column col-sm="6" offset="4" style="margin-top: 9px;">
+                                        <strong>#{user.handle}</strong>
+                                        <br></br>
+                                        @#{user.handle}
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column col-md="3" style="margin-left: 10px;">
+                                        <h6>Tweets
+                                            <br></br>
+                                            #{LoggedUserBean.tweetsamount}
+                                        </h6>
+                                    </b:column>
+                                    <b:column col-md="3">
+                                        <h6>Followers
+                                            <br></br>
+                                            #{LoggedUserBean.followersamount}
+                                        </h6>
+                                    </b:column>
+                                    <b:column col-md="3">
+                                        <h6>Following
+                                            <br></br>
+                                            #{LoggedUserBean.followingamount}
+                                        </h6>
+                                    </b:column>
+
+                                </b:row>
+                            </div>
+                        </b:column>
+                    </ui:repeat>
+                </b:tab>
+                <b:tab title="Followers #{LoggedUserBean.followersamount}">
+                    <ui:repeat var="user" value="#{LoggedUserBean.followers}">
+
+                        <b:column col-md="6">
+                            <div class="profilebox">
+                                <div class="banner">
+                                </div>
+                                <b:image styleClass="profilepic2" value="https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg" width="200px" height="200px" />
+                                <b:row>
+                                    <b:column col-sm="6" offset="4" style="margin-top: 9px;">
+                                        <strong>#{user.handle}</strong>
+                                        <br></br>
+                                        @#{user.handle}
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column col-md="3" style="margin-left: 10px;">
+                                        <h6>Tweets
+                                            <br></br>
+                                            #{LoggedUserBean.tweetsamount}
+                                        </h6>
+                                    </b:column>
+                                    <b:column col-md="3">
+                                        <h6>Followers
+                                            <br></br>
+                                            #{LoggedUserBean.followersamount}
+                                        </h6>
+                                    </b:column>
+                                    <b:column col-md="3">
+                                        <h6>Following
+                                            <br></br>
+                                            #{LoggedUserBean.followingamount}
+                                        </h6>
+                                    </b:column>
+
+                                </b:row>
+                            </div>
+                        </b:column>
+                    </ui:repeat>
+                </b:tab>
+                <b:tab title="Hearted #{LoggedUserBean.heartsamount}">
+                    <ui:repeat var="heart" value="#{LoggedUserBean.heartedtweets}">
+                        <div class="tweet">
+                            <b:row>
+                                <b:column col-md="1" style="padding-left: 5px;">
+                                    <b:image styleClass="tweetpic" value="https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg" width="50px" height="50px" />
+                                </b:column>
+                                <b:column col-md="9">
+                                    <strong>#{heart.tweet.user.name}</strong>
+                                    @#{heart.tweet.user.handle} -
+                                    <br></br>
+                                    #{heart.tweet.tweet}
+                                </b:column>
+                                <h:form>
+                                    #{heart.tweet.amounthearts}
+
+                                    <h:commandButton action="#{LoggedUserBean.heartTweet()}" value="H">
+                                        <f:param name="id" value="#{heart.tweet.id}" />
+                                    </h:commandButton>
+                                </h:form>
+                            </b:row>
+                        </div>
+                    </ui:repeat>
+                </b:tab>
+                </b:tabView>
+            </b:column>
+        </b:row>
+
+    </b:container>
+</h:body>
+</html>

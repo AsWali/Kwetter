@@ -1,17 +1,19 @@
 package endpoints;
 
+import domain.Hearts;
 import domain.Tweet;
 import domain.User;
 import exception.NoExistingUser;
 import exception.NotAuthorized;
-import service.impl.TweetServiceImpl;
+import io.swagger.annotations.Api;
 import service.impl.UserServiceImpl;
+import utils.PermissionsEnum;
+import annotation.Secured;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,11 +22,20 @@ import java.util.Set;
  */
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
+@Api(value = "User")
+@RolesAllowed("USER")
 public class UserController {
 
     @Inject
     private UserServiceImpl uservice;
 
+    /**
+     * Return an User object without the tweets, hearts, followers and following.
+     * Search is done on the User Handle.
+     * @param handle the Users handle
+     * @return User Object
+     * @throws NoExistingUser
+     */
     @GET
     @Path("{handle}/profile")
     public Object getProfile(@PathParam("handle") String handle) throws NoExistingUser {
@@ -36,62 +47,124 @@ public class UserController {
         }
     }
 
+    /**
+     * Method that adds an user.
+     * @param user User Object
+     * @return the created User
+     */
     @POST
-    @Path("create")
+    @Path("")
     @Consumes("application/json")
-    public void addUser(User user){
-        uservice.addUser(user);
+    public User addUser(User user) {
+            return uservice.addUser(user);
     }
 
+    /**
+     * Method that removes an user. Only executes when the Target User and Sender User are the same.
+     * @param user Target User
+     * @return true or false
+     * @throws NotAuthorized
+     */
+    @DELETE
+    @Path("")
+    @Consumes("application/json")
+    public boolean removeUser(User user) throws NotAuthorized {
+        if(uservice.getLoggedUser().getId().equals(user.getId())) {
+            uservice.removeUser(user.getId());
+        } else {
+            throw new NotAuthorized("You are not allowed !");
+        }
+        return true;
+    }
+
+    /**
+     * Method that updates and user object. Mostly bio, name, webste and name.
+     * @param user User Object
+     * @return
+     */
     @PUT
-    @Path("update")
+    @Path("")
     @Consumes("application/json")
-    public void updateUser(User user){
-        User d = uservice.getUser(user.getId());
-        d.setName(user.getName());
-        d.setPicture(user.getPicture());
-        d.setBio(user.getBio());
-        d.setLocation(user.getLocation());
-        d.setWebsite(user.getWebsite());
-        uservice.updateUser(user);
+    public User updateUser(User user){
+        return uservice.updateUser(user);
     }
 
+    /**
+     * Method that returns all the tweets that belong to the userid
+     * @param userid User Id
+     * @return a list of tweets
+     */
     @GET
     @Path("{userid}/alltweets")
     public Set<Tweet> getAllTweets(@PathParam("userid") Long userid) {
         return uservice.getTweets(userid);
     }
 
+    /**
+     * Method that add an user to another user followers list.
+     * @param user Sender Owner and Target Owner
+     */
     @POST
-    @Path("follower")
+    @Path("follow")
     @Consumes("application/json")
-    public void addFollower(List<User> users){
-        uservice.addFollower(users.get(0).getId(), users.get(1).getId());
+    public void addFollower(User user){
+        uservice.addFollower(uservice.getLoggedUser().getId(), user.getId());
     }
 
+    /**
+     * Method that unfollows an user
+     * @param targetid Sender Target Id
+     * @return true or false
+     */
     @DELETE
-    @Path("{userid}/unfollow/{targetid}")
-    public boolean removeFollower(@PathParam("userid") Long userid, @PathParam("targetid") Long targetid ) {
-        uservice.removeFollower(userid, targetid);
+    @Path("unfollow/{targetid}")
+    public boolean removeFollower(@PathParam("targetid") Long targetid ) {
+        uservice.removeFollower(uservice.getLoggedUser().getId(), targetid);
         return true;
     }
 
+    /**
+     * Method that returns all the followers of an User
+     * @param userid User id
+     * @return list of users
+     */
     @GET
     @Path("{userid}/followers")
     public Set<User> getFollowers(@PathParam("userid") Long userid)  {
         return uservice.getFollowers(userid);
     }
 
+    /**
+     * Method that return all the User the user follows
+     * @param userid User id
+     * @return list of users
+     */
     @GET
     @Path("{userid}/following")
     public Set<User> getFollowing(@PathParam("userid") Long userid)  {
         return uservice.getFollowing(userid);
     }
 
+    /**
+     * Method that return the most recent tweets of an user
+     * @param handle User Handle
+     * @return a list of tweets
+     */
     @GET
     @Path("{handle}/tweets")
     public List<Tweet> getTweets(@PathParam("handle") String handle) {
         return uservice.getRecentTweets(handle);
+    }
+
+    /**
+     * Method that returns all the Hearts an user has given.
+     * @param userid User id
+     * @return list of Hearts
+     */
+    @GET
+    @Path("{userid}/hearts")
+    public Set<Hearts> getHearted(@PathParam("userid") Long userid) {
+        return uservice.getHearted(userid);
     }
 
 

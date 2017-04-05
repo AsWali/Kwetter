@@ -2,6 +2,7 @@ package utils;
 
 import domain.Tweet;
 import domain.User;
+import exception.NoExistingUser;
 import service.impl.TweetServiceImpl;
 import service.impl.UserServiceImpl;
 
@@ -27,8 +28,8 @@ public class StartUp {
     private TweetServiceImpl tservice;
 
     @PostConstruct
-    private void initData() {
-        User u = new User("Asror", "", "Asror", "Hallo, ik ben Asror", "Rijen", "walicorp,com");
+    private void initData() throws NoExistingUser {
+        User u = new User("Asror", "Password", "", "Asror", "Hallo, ik ben Asror", "Rijen", "walicorp,com");
         uservice.addUser(u);
 
         Tweet t1 = new Tweet("What a nice day!", u, new GregorianCalendar(2017, 2, 1));
@@ -57,7 +58,7 @@ public class StartUp {
         tservice.addTweet(t11);
         tservice.addTweet(t12);
 
-        User u2 = new User("Jon", "", "Jon", "Hallo, ik ben Jon", "Rijen", "jon,com");
+        User u2 = new User("Jon", "password", "", "Jon", "Hallo, ik ben Jon", "Rijen", "jon,com");
         uservice.addUser(u2);
 
         Tweet t13 = new Tweet("What a nice day!", u2, new GregorianCalendar(2017,1, 1));
@@ -87,10 +88,10 @@ public class StartUp {
         tservice.addTweet(t24);
 
 
-        User u3 = new User("Jake", "", "Jake", "Jake Jones ", "Manhatten", "Jake.com");
+        User u3 = new User("Jake", "jakerino", "", "Jake", "Jake Jones ", "Manhatten", "Jake.com");
         uservice.addUser(u3);
 
-        User u4 = new User("Will", "", "Will", "Will is the name", "Unknown", "will,com");
+        User u4 = new User("Will", "willerino", "", "Will", "Will is the name", "Unknown", "will,com");
         uservice.addUser(u4);
     }
 }
